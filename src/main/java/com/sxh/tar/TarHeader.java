@@ -28,4 +28,21 @@ public class TarHeader {
     public static final int USTAR_GROUP_NAMELEN = 32;
     public static final int USTAR_DEVLEN = 8;
     public static final int USTAR_FILENAME_PREFIX = 155;
+    
+    // fiels in header
+    public String name;
+    public int mode;
+    public int userId;
+    public int groupId;
+    public long size;
+    public long modTime;
+    public int checkSum;
+    public byte linkFlag;
+    public String linkName;
+    public String magic;
+    public String userName;
+    public String groupName;
+    public int devMajor;
+    public int devMinor;
+    public String namePrefix;
 }
