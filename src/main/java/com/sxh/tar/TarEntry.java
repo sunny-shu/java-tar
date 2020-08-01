@@ -1,8 +1,89 @@
 package com.sxh.tar;
 
+import java.util.Date;
+
+
 public class TarEntry {
     private TarHeader header;
     private long startPos;
+    
+    public TarEntry(byte[] header) {
+        this.parseHeader(header);
+    }
+    
+    public TarHeader getHeader() {
+        return header;
+    }
+
+    public String getName() {
+        String name = header.name;
+        if (header.namePrefix != null && !header.namePrefix.toString().equals("")) {
+            name = header.namePrefix.toString() + "/" + name;
+        }
+
+        return name;
+    }
+
+    public void setName(String name) {
+        header.name = name;
+    }
+
+    public int getUserId() {
+        return header.userId;
+    }
+
+    public void setUserId(int userId) {
+        header.userId = userId;
+    }
+
+    public int getGroupId() {
+        return header.groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        header.groupId = groupId;
+    }
+
+    public String getUserName() {
+        return header.userName;
+    }
+
+    public void setUserName(String userName) {
+        header.userName = userName;
+    }
+
+    public String getGroupName() {
+        return header.groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        header.groupName = groupName;
+    }
+
+    public void setIds(int userId, int groupId) {
+        this.setUserId(userId);
+        this.setGroupId(groupId);
+    }
+
+    public void setModTime(long time) {
+        header.modTime = time / 1000;
+    }
+
+    public void setModTime(Date time) {
+        header.modTime = time.getTime() / 1000;
+    }
+
+    public Date getModTime() {
+        return new Date(header.modTime * 1000);
+    }
+
+    public long getSize() {
+        return header.size;
+    }
+
+    public void setSize(long size) {
+        header.size = size;
+    }
 
     public void parseHeader(byte[] data) {
         int offset = 0;
