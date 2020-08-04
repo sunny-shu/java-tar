@@ -32,4 +32,6 @@ public class TarConstants {
     public static final int USTAR_GROUP_NAMELEN = 32;
     public static final int USTAR_DEVLEN = 8;
     public static final int USTAR_FILENAME_PREFIX = 155;
+    
+    public static final int IO_BUFFER_SIZE = 4096;
 }

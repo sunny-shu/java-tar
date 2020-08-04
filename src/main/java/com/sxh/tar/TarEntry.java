@@ -1,10 +1,11 @@
 package com.sxh.tar;
 
+import java.io.File;
 import java.util.Date;
-
 
 public class TarEntry {
     private TarHeader header;
+    private File file;
     private long startPos;
     
     public TarEntry(byte[] header) {
@@ -84,7 +85,19 @@ public class TarEntry {
     public void setSize(long size) {
         header.size = size;
     }
+    
+    public boolean isDirectory() {
+        if (this.file != null)
+            return this.file.isDirectory();
 
+        if (header != null) {
+            if (header.linkFlag == TarConstants.LF_DIR)
+                return true;
+        }
+
+        return false;
+    }
+    
     public void parseHeader(byte[] data) {
         int offset = 0;
 
