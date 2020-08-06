@@ -16,7 +16,7 @@ public class Tar {
                 if (entry == null) {
                     isFinished = true;
                 } else {
-                    writeFile(entry, tarInputStream, destDir);
+                    TarUtil.writeTarEntryToFile(entry, tarInputStream, destDir);
                 }
             }
         } catch (Exception e) {
@@ -24,26 +24,5 @@ public class Tar {
         }
     }
 
-    private static void writeFile(TarEntry entry, TarInputStream tarInputStream, String destDir) {
-        int count;
-        byte data[] = new byte[TarConstants.IO_BUFFER_SIZE];
-        File fileToUnpack = Paths.get(destDir, entry.getName()).toFile();
-        
-        if (entry.isDirectory()) {
-            
-            if(!fileToUnpack.exists()) {
-                fileToUnpack.mkdirs();
-            }
-        }
-        try( BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(fileToUnpack));) {
-            while ((count = tarInputStream.read(data)) != -1) {
-                output.write(data, 0, count);
-            }
 
-            output.flush();
-            output.close();
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
 }

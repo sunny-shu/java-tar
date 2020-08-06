@@ -1,5 +1,10 @@
 package com.sxh.tar;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.file.Paths;
+
 public class TarUtil {
     public static String parseName(byte[] header, int offset, int length) {
         StringBuffer result = new StringBuffer(length);
@@ -100,5 +105,28 @@ public class TarUtil {
         getOctalBytes( value, temp, 0, length + 1 );
         System.arraycopy( temp, 0, buf, offset, length );
         return offset + length;
+    }
+    
+    public static void writeTarEntryToFile(TarEntry entry, TarInputStream tarInputStream, String destDir) {
+        int count;
+        byte data[] = new byte[TarConstants.IO_BUFFER_SIZE];
+        File fileToUnpack = Paths.get(destDir, entry.getName()).toFile();
+        
+        if (entry.isDirectory()) {
+            
+            if(!fileToUnpack.exists()) {
+                fileToUnpack.mkdirs();
+            }
+        }
+        try( BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(fileToUnpack));) {
+            while ((count = tarInputStream.read(data)) != -1) {
+                output.write(data, 0, count);
+            }
+
+            output.flush();
+            output.close();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 }

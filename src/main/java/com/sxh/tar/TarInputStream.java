@@ -20,24 +20,6 @@ public class TarInputStream extends FilterInputStream{
     public boolean markSupported() {
         return false;
     }
-    
-    /**
-     * Not supported
-     * 
-     */
-    @Override
-    public synchronized void mark(int readlimit) {
-        
-    }
-
-    /**
-     * Not supported
-     * 
-     */
-    @Override
-    public synchronized void reset() throws IOException {
-        throw new IOException("mark/reset not supported");
-    }
 
     @Override
     public int read() throws IOException {
