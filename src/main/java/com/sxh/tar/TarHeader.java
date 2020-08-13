@@ -1,5 +1,8 @@
 package com.sxh.tar;
 
+import java.io.File;
+
+
 public class TarHeader {
     public String name;
     public int mode;
@@ -16,4 +19,12 @@ public class TarHeader {
     public int devMajor;
     public int devMinor;
     public String namePrefix;
+    
+    public static TarHeader createHeader(File file, File root) {
+        TarHeader header = new TarHeader();
+        header.name = FileUtil.getRelativePath(file, root).replace(File.separator, "/");
+        
+        
+        return header;
+    }
 }

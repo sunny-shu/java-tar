@@ -15,7 +15,7 @@ public class Targz {
                 if (entry == null) {
                     isFinished = true;
                 } else {
-                    TarUtil.writeTarEntryToFile(entry, tarInputStream, destDir);
+                    FileUtil.writeTarEntryToFile(entry, tarInputStream, destDir);
                 }
             }
         } catch (Exception e) {
